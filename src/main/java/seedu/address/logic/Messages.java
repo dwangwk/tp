@@ -57,7 +57,7 @@ public class Messages {
         } else {
             startup.getNotes().forEach(note ->
                     builder.append(note.toString())
-                            .append(System.lineSeparator())); // Each note on a new line for readability
+                            .append(" ")); // Add a space after each note for readability
         }
 
         builder.append("; Tags: ");

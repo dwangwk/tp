@@ -106,6 +106,9 @@ startup investments!
 * The key employees and notes displayed in the key employee box and note box belongs to the currently selected startup.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+* Our Success Messages may seem long, but this is a feature! Use the scroll to ensure that the startups was added, edited and deleted successfully!
+
 </box>
 
 ### Viewing help : `help`
