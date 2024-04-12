@@ -301,6 +301,10 @@ without clicking into it, you could tag the startup with `t/passionate`.
 
 This was a design feature made by our engineers to keep the UI as clean as possible! However, we understand that note numberings may become difficult to track, especially since we allow unlimited notes! In a future iteration, we will include indexes to help our users keep better track of their notes!
 
+**Why are duplicate notes allowed?**
+
+Users are given complete freedom to decide how they want to organise the notes of their startups, this includes duplicate notes if they are desired :) 
+
 ---
 
 ### Editing a Note of a Startup: `editnote`
