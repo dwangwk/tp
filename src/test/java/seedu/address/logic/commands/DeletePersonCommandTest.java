@@ -27,7 +27,7 @@ public class DeletePersonCommandTest {
         Startup startupToEdit = model.getFilteredStartupList().get(INDEX_FIRST_STARTUP.getZeroBased());
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         Startup expectedStartup = new StartupBuilder(startupToEdit).withPersons().build();
-        String expectedMessage = String.format(DeletePersonCommand.MESSAGE_SUCCESS, expectedStartup);
+        String expectedMessage = String.format(DeletePersonCommand.MESSAGE_SUCCESS, Messages.format(expectedStartup));
         expectedModel.setStartup(startupToEdit, expectedStartup);
 
         assertCommandSuccess(deletePersonCommand, model, expectedMessage, expectedModel);

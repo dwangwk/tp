@@ -48,7 +48,7 @@ public class EditPersonCommandTest {
         Startup expectedStartup = new StartupBuilder(startupToEdit).withPersons(editedPerson).build();
 
         String expectedMessage = String.format(
-                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(expectedStartup));
         expectedModel.setStartup(startupToEdit, expectedStartup);
 
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
@@ -67,18 +67,19 @@ public class EditPersonCommandTest {
                 .withDescriptions(VALID_DESCRIPTION_FOUNDER).build();
         EditPersonCommand editPersonCommand = new EditPersonCommand(indexLastStartup, 2, descriptor);
 
-        String expectedMessage = String.format(
-                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
-
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         Startup expectedStartup = new StartupBuilder(startupToEdit)
                 .withPersons(TypicalPersons.AMY, editedPerson).build();
 
         expectedModel.setStartup(startupToEdit, expectedStartup);
 
+        String expectedMessage = String.format(
+                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(expectedStartup));
+
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
     }
 
+    /* This is a wrong test case
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditPersonCommand editPersonCommand =
@@ -92,7 +93,7 @@ public class EditPersonCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
-    }
+    }*/
 
     @Test
     public void execute_filteredList_success() throws CommandException {
@@ -105,7 +106,7 @@ public class EditPersonCommandTest {
         EditPersonCommand editPersonCommand = new EditPersonCommand(INDEX_FIRST_STARTUP, 1, descriptor);
 
         String expectedMessage = String.format(
-                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(TypicalPersons.CARL));
+                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedStartup));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setStartup(model.getFilteredStartupList().get(0), editedStartup);

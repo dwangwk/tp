@@ -37,7 +37,7 @@ public class AddPersonCommand extends Command {
             + CliSyntax.PREFIX_PERSON_DESCRIPTION + "founder";
 
 
-    public static final String MESSAGE_SUCCESS = "New person added to Startup %1$s: %2$s";
+    public static final String MESSAGE_SUCCESS = "New person added to Startup: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in CapitalConnect";
 
     private final Index index;
@@ -91,7 +91,7 @@ public class AddPersonCommand extends Command {
 
 
         model.setStartup(startupToEdit, editedStartup);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedStartup.getName(), Messages.format(toAdd)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedStartup)));
     }
 
     @Override

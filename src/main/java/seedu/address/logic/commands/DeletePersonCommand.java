@@ -68,7 +68,7 @@ public class DeletePersonCommand extends Command {
         );
 
         model.setStartup(startupToEdit, editedStartup);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedStartup));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedStartup)));
     }
 
     @Override

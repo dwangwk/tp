@@ -43,9 +43,8 @@ class AddPersonCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         Startup expectedStartup = new StartupBuilder(startupToEdit).withPersons(TypicalPersons.AMY, newPerson).build();
-
-        String expectedMessage = String.format(AddPersonCommand.MESSAGE_SUCCESS, expectedStartup.getName(),
-                Messages.format(newPerson));
+        String expectedStartupMessage = Messages.format(expectedStartup);
+        String expectedMessage = String.format(AddPersonCommand.MESSAGE_SUCCESS, expectedStartupMessage);
         expectedModel.setStartup(startupToEdit, expectedStartup);
 
         assertCommandSuccess(addPersonCommand, model, expectedMessage, expectedModel);
