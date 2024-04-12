@@ -79,22 +79,6 @@ public class EditPersonCommandTest {
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
     }
 
-    /* This is a wrong test case
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditPersonCommand editPersonCommand =
-                new EditPersonCommand(INDEX_FIRST_STARTUP, 1, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredStartupList().get(INDEX_FIRST_STARTUP.getZeroBased())
-                .getPersons().get(0);
-
-        String expectedMessage = String.format(
-                EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
-    }*/
-
     @Test
     public void execute_filteredList_success() throws CommandException {
         showStartupAtIndex(model, INDEX_FIRST_STARTUP);

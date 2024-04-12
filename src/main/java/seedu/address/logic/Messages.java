@@ -41,16 +41,24 @@ public class Messages {
                 .append("; Industry: ")
                 .append(startup.getIndustry())
                 .append("; Funding Stage: ")
-                .append(startup.getFundingStage())
-                .append("; Phone: ")
+                .append(startup.getFundingStage() + ";")
+                .append(System.lineSeparator())
+                .append("Phone: ")
                 .append(startup.getPhone())
                 .append("; Email: ")
-                .append(startup.getEmail())
-                .append("; Address: ")
+                .append(startup.getEmail()  + ";")
+                .append(System.lineSeparator())
+                .append("Address: ")
                 .append(startup.getAddress())
                 .append("; Valuation: ")
-                .append(startup.getValuation())
-                .append("; Notes: ");
+                .append(startup.getValuation() + ";")
+                .append(System.lineSeparator());
+
+        builder.append("Tags: ");
+        startup.getTags().forEach(tag -> builder.append(tag).append(" ")); // Assuming Tag has a sensible toString()
+        builder.append(";");
+        builder.append(System.lineSeparator());
+        builder.append("Notes: ");
 
         if (startup.getNotes().isEmpty()) {
             builder.append("No notes added.");
@@ -60,8 +68,18 @@ public class Messages {
                             .append(" ")); // Add a space after each note for readability
         }
 
-        builder.append("; Tags: ");
-        startup.getTags().forEach(tag -> builder.append(tag).append(" ")); // Assuming Tag has a sensible toString()
+        builder.append(";");
+        builder.append(System.lineSeparator());
+        builder.append("People: ");
+
+        if (startup.getPersons().isEmpty()) {
+            builder.append("No people added.");
+        } else {
+            startup.getPersons().forEach(person ->
+                    builder.append(format(person))
+                            .append(";")
+                            .append(System.lineSeparator())); // Add a new line after each note for readability
+        }
 
         return builder.toString().trim(); // Trim to remove any trailing spaces
     }
@@ -71,17 +89,18 @@ public class Messages {
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
+        builder.append("Name: ")
+                .append(person.getName())
                 .append("; Email: ")
                 .append(person.getEmail())
-                .append("; Descriptions: ");
+                .append("; Description: ");
 
         if (person.getDescriptions().isEmpty()) {
             builder.append("No descriptions added.");
         } else {
             person.getDescriptions().forEach(description ->
                     builder.append(description.toString())
-                            .append(System.lineSeparator())); // Each description on a new line for readability
+                            .append(" ")); // Each description separated by a space
         }
 
         return builder.toString().trim(); // Trim to remove any trailing spaces
