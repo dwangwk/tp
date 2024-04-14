@@ -128,20 +128,14 @@ Format: `add n/NAME p/PHONE_NUMBER i/INDUSTRY f/FUNDING_STAGE e/EMAIL a/ADDRESS 
 
 <box type="info" seamless>
 
-* `n/NAME` can have numbers! Additionally, we do not limit the length of your input for your flexibility!
-
-* `p/PHONE_NUMBER` does not support non-numerical characters. We also do not limit the length of your input number too. We understand that this makes it difficult to add international numbers that require characters like 
-"-" to differentiate between country codes. We are working on it and will roll it out in a future release.
-
-* We restrict `v/VALUATION` to be a value between 0 and 5 Trillion. (Note that the most expensive company is only valued at around 3 Trillion as of April 10, 2024) For now, there is no way to specify currency denomination and values have to be input in integer form, I.e. To reflect a valuation of `10k`, the user must input `10000`.
-Additionally, the input value is truncated to 4 characters to allow for a clean display. I.e. A input of `101800` will be displayed as a 4 character `101k`, `123200010` to `123m`. 
+* We restrict `v/VALUATION` to be a value between 0 and 5 Trillion. (Note that the most expensive company is only valued at around 3 Trillion as of April 10, 2024) For now, there is no way to specify currency denomination and values have to be input in integer form, I.e. To reflect a valuation of `10k`, the user must input `10000`. Additionally, the input value is truncated to 4 characters to allow for a clean display. I.e. A input of `101800` will be displayed as a 4 character `101k`, `123200010` to `123m`.
 
 * We only support traditional funding stages, hence inputs for `FUNDING_STAGE` must be either `S`, `PS`, `A`, `B` or `C`.
   `A`, `B`, `C` represents the respective funding series whilst `PS` refers to pre-seed and `S` refers to the seed stage. For more information about funding stages, see [here](https://www.indeed.com/career-advice/career-development/startup-funding-stages)!
 
-* `[t/TAG]` variables are not length-limited. We also do not allow duplicate `[t/TAG]`!
+* `[t/TAG]` variables are not length-limited. We also do not allow duplicate `[t/TAG]`, however `[t/TAG]` is case-sensitive, hence it is possible for a startup to have both the tags `inDebt` and `InDebt` at the same time.
 
-* Note that inputs like `n/NAME`, `e/EMAIL`, `a/ADDRESS` are currently case-insensitive in CapitalConnect, however `i/INDUSTRY` is kept case-sensitive.
+* Note that `n/NAME` is currently case-sensitive in CapitalConnect, hence it is possible to have a startup with the name `Google` and another with the name `google` on CapitalConnect at the same time.
 </box>
 
 <box type="tip" seamless>
@@ -194,18 +188,19 @@ Examples:
 **Tip:** The same input rules for `add` applies here! An invalid input will throw an error.
 </box>
 
-### Locating startups by name: `find`
+### Locating startups by name: `find n/`
 
 Finds startups with names that contain any of the given keywords.
 
 Format: `find n/NAME [MORE_NAME]`
 
-* The search is case-insensitive. e.g `apple` will match `Apple`
-* The order of the keywords does not matter. e.g. `Jane Street` will match `Street Jane`
+* The search is case-insensitive. e.g `apple` will match `Apple`.
+* The order of the keywords does not matter. e.g. `Jane Street` will match `Street Jane`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Microsoft` will not match `Microsofts`.
+* Only full words will be matched. e.g. `Microsoft` will not match `Microsofts`.
 * Startups matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Jane Street` will return `Jane Technologies`, `State Street`.
+* We understand that you might want to use partial matching to find the matching startup, but this feature is currently under development. This feature will be dropped soon!
 
 Examples:
 * `find n/Google` returns `google` and `Google Deepmind`
@@ -216,7 +211,7 @@ Examples:
 
   ![result for 'find by name apple'](images/findByNameApple.png)
 
-### Locating startups by funding stage: `find`
+### Locating startups by funding stage: `find f/`
 
 Finds startups that match the funding stages you are looking for.
 
@@ -226,13 +221,16 @@ Format: `find f/FUNDING_STAGE [MORE_FUNDING_STAGES]`
 * Multiple funding stages can be looked up in a single search.
 * The order of the keywords does not matter. e.g. `A B` will match `B A`.
 * Only the funding stage is searched.
+* Again, we only support traditional funding stages, so inputs for `FUNDING_STAGE` should be either `S`, `PS`, `A`, `B` or `C`in order to find a matching startup.
+  `A`, `B`, `C` represents the respective funding series whilst `PS` refers to pre-seed and `S` refers to the seed stage.
+* Please take note that inputs other than the ones mentioned above will also be accepted, but zero matching startups will be listed.
 
 Examples:
 * `find f/C` returns startups that are currently in Series C funding.
 
   ![result for 'find by fundingStage C'](images/findByFundingStage.png)
 
-### Locating startups by industry: `find`
+### Locating startups by industry: `find i/`
 
 Finds startups with industries that match any of the given keywords.
 
@@ -246,7 +244,7 @@ Format: `find i/INDUSTRY [MORE_INDUSTRIES]`
 Examples:
 * `find i/AI` returns startups that have AI tagged within their industry.
 
-  ![result for 'find by fundingStage C'](images/findByIndustry.png)
+  ![result for 'find by industry'](images/findByIndustry.png)
 
 ### Deleting a startup : `delete`
 
@@ -283,14 +281,13 @@ Examples:
 
 What's the difference between a `NOTE` and a `t/TAG`?
 
-We aim for `NOTE` to be used to store longer, more verbose details! Whereas `t/TAG` should be used to store 
-information that needs to be easy to reach and accessible!
+We aim for `NOTE` to be used to store longer, more verbose details! Whereas `t/TAG` should be used to store information that needs to be easy to reach and accessible!
 
 Consider the storing the following: "The startup founder seems very passionate in his speech", storing this with `t/TAG`
 may not be the best idea as it is verbose, and it might be information you don't need on hand.
 
-However, if the founder's passion is something important to you, and you want the ability to know this about a startup
-without clicking into it, you could tag the startup with `t/passionate`.
+However, if the founder's passion is something important to you, and you want the ability to know this detail about a startup
+without clicking into it on the user interface, you could tag the startup with `t/passionate`.
 ""
 </box>
 
@@ -359,10 +356,27 @@ Currently, we do not support a feature allowing users to delete all their notes 
 
 ### Adding a person to a startup: `add-p`
 
-* Adds a person to the specified startup in CapitalConnect.
-* Click on the startup card that contains your new person to see the changes.
-
 Format: `add-p INDEX pn/NAME pe/EMAIL [pd/DESCRIPTION]…​`
+
+* Adds a person to the specified startup at index `INDEX` in CapitalConnect. The index refers to the index number shown in the startup list. The index **must be a positive integer** 1, 2, 3, …​
+* Click on the startup card that contains your new person to see the changes.
+* The name of the person should be alphanumeric. Although we do not limit the length of your input for your flexibility, take note of the limited space of the display pane. The pane size limitation applies to all fields!
+
+
+<box type="warning" seamless>
+
+**Caution: Detection of Duplicated Persons**
+
+Note that duplicated persons in one startup are detected by `email`. We assume that `email` is unique for every person.
+In other words, we assume that it is possible to have 3 Johns in one company, and they all have different emails. Before adding a new person to the startup, always double-check their `email` to make sure that the person is not added already.
+Also take note that we allow one person to work in multiple startups.
+</box>
+
+Example:
+* `add-p 1 pn/John pe/johndoe@example.com pd/founder` Adds the founder of the first startup John into the company.
+* `add-p 1 pn/Amy pe/amybee@example.com` Adds Amy to the first startup.
+
+![result for 'add_person_command'](images/AddPersonCommand.png)
 
 ### Editing a person from a startup: `edit-p`
 
@@ -394,6 +408,8 @@ it may appear like the information in the key employee box are not being updated
 Rest assured, the information is updated. To ensure you see the updated information, simply click on your startup card after any person-related operation, i.e., `add-p`, `edit-p`, and `delete-p`.
 </box>
 
+![result for 'edit_person_command'](images/EditPersonCommand.png)
+
 ### Deleting a person from a startup: `delete-p`
 
 * Deletes the person at `PERSON_INDEX` from the startup at the specified `INDEX`. Both indexes refer to the index number shown in the displayed in the key employees list and startup list respectively. Both indexes **must be positive integers** 1, 2, 3, …​
@@ -409,6 +425,8 @@ Examples:
 
 **Tip:** Always click on the startup card after performing person-related operations to ensure you see the updated information.
 </box>
+
+![result for 'delete_person_command'](images/DeletePersonCommand.png)
 
 ### Clearing all entries : `clear`
 
@@ -480,6 +498,6 @@ Furthermore, certain edits can cause CapitalConnect to behave in unexpected ways
 | **Add Note**              | `addnote INDEX NOTE` <br> e.g., `addnote 1 Secured Series A funding`                                                                                                                                         |
 | **Edit Note**             | `editnote INDEX NOTE_INDEX NOTE` <br> e.g., `editnote 1 1 Revised Series A valuation`                                                                                                                        |
 | **Delete Note**           | `deletenote INDEX NOTE_INDEX` <br> e.g., `deletenote 1 1`                                                                                                                                                    |
-| **Add Person**            | `add-p INDEX pn/NAME pe/EMAIL [pd/DESCRIPTION]…​` <br> e.g., `add-p 1 pn/name pe/email pd/founder`                                                                                                           |
-| **Edit Person**           | `edit-p INDEX PERSON_INDEX [pn/NAME] [pe/EMAIL] [pd/DESCRIPTION]…​` <br> e.g., `edit-p 1 1 pn/name pe/email pd/founder`                                                                                      |
-| **Delete Person**         | `delete-p INDEX PERSON_INDEX` <br> e.g., `delete-p 1 1`                                                                                                                                                      |   
+| **Add Person**            | `add-p INDEX pn/NAME pe/EMAIL [pd/DESCRIPTION]…​` <br> e.g., `add-p 1 pn/John pe/johndoe@example.com pd/founder`                                                                                             |
+| **Edit Person**           | `edit-p INDEX PERSON_INDEX [pn/NAME] [pe/EMAIL] [pd/DESCRIPTION]…​` <br> e.g., `edit-p 1 1 pn/john pe/johndoe233@example.com pd/founder`                                                                     |
+| **Delete Person**         | `delete-p INDEX PERSON_INDEX` <br> e.g., `delete-p 1 1`                                                                                                                                                      |

@@ -30,7 +30,7 @@ public class DeleteNoteCommandTest {
         Startup startupToEdit = model.getFilteredStartupList().get(INDEX_FIRST_STARTUP.getZeroBased());
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         Startup expectedStartup = new StartupBuilder(startupToEdit).withNotes("Looking into Series A funding").build();
-        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_SUCCESS, Messages.format(expectedStartup));
+        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_SUCCESS, expectedStartup);
         expectedModel.setStartup(startupToEdit, expectedStartup);
         assertCommandSuccess(deleteNoteCommand, model, expectedMessage, expectedModel);
     }

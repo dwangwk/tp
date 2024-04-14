@@ -68,7 +68,7 @@ public class DeleteNoteCommand extends Command {
         );
 
         model.setStartup(startupToEdit, editedStartup);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedStartup)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedStartup));
     }
 
     @Override

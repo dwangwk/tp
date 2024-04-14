@@ -36,7 +36,7 @@ public class AddNoteCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         expectedModel.setStartup(startupToEdit, expectedStartup);
-        String expectedMessage = String.format(AddNoteCommand.MESSAGE_SUCCESS, Messages.format(expectedStartup));
+        String expectedMessage = String.format(AddNoteCommand.MESSAGE_SUCCESS, expectedStartup);
 
         assertCommandSuccess(addNoteCommand, model, expectedMessage, expectedModel);
     }

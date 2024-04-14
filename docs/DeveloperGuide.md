@@ -469,7 +469,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. CapitalConnect shows an error message.
 
       Use case resumes at step 2.
-  
+
 * 7a. Invalid input or missing parameters.
 
     * 7a1. CapitalConnect shows an error message.
@@ -533,7 +533,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a startup
 
@@ -542,7 +541,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all startups using the `list` command. Multiple startups in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First startup is deleted from the list. Details of the deleted startup shown.
 
    1. Test case: `delete 0`<br>
       Expected: No startup is deleted. Error details shown in the status message. Status bar remains the same.
@@ -550,12 +549,63 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a startup
 
-### Saving data
+1. Adding a startup with valid inputs.
 
-1. Dealing with missing/corrupted data files
+   1. Test case: `add n/Google p/999 e/sundarpichal@example.com v/100000 a/Menlo Park, block 123, #01-01 f/A i/tech`<br>
+        Expected: The startup with the respective details have been successfully added to CapitalConnect. Details of the added startup shown.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+2. Adding a startup with missing / invalid inputs.
 
-1. _{ more test cases …​ }_
+    1. Test case: `add n/ p/98765432 e/sundarpichal@example.com v/100000 a/Menlo Park, block 123, #01-01 f/A i/tech`<br>
+        Expected: No startup is added, message sent to user that name should not be blank.
+
+    2. Test case: `add n/Google p/1 e/sundarpichal@example.com v/100000 a/Menlo Park, block 123, #01-01 f/A i/tech`<br>
+        Expected: No startup is added, message sent to user that phone number should be at least 3 digits long.
+
+    3. Test case: `add n/Google p/98765432 e/sundarpichal@example.com v/100000 a/Menlo Park, block 123, #01-01 f/J i/tech`<br>
+        Expected: No startup is added, message sent to user on appropriate inputs for funding stages.
+
+    4. Test case: `add n/Google p/98765432 e/sundarpichal@example.com v/-1 a/Menlo Park, block 123, #01-01 f/A i/tech` <br>
+        Expected: No startup is added, message sent to user on the valid inputs for company valuation.
+
+### Editing a startup
+
+1. Prerequisites: One startup in CapitalConnect at the first position.
+
+1. Editing startup with valid inputs
+
+    1. Test case: `edit 1 n/test` <br>
+        Expected: The startup at position 1 has its name changed. Details of the edited startup is shown.
+
+    2. Test case: `edit 1 v/9999` <br>
+        Expected: The startup at position 1 has its valuation changed, details of the edited startup is shown. The new valuation is displayed as `9.9k`.
+
+2. Editing a startup with invalid inputs
+
+    1. Test case: `edit 1 f/H` <br>
+        Expected: No edits made to any startups, users are informed on valid input for funding stages.
+
+    2. Test case: `edit 1 i/`
+        Expected: No edits made to any startups, users are informed on valid industry inputs.
+
+## **Appendix: Planned Enhancement**
+
+Team size: 4
+
+1. Limit length of startup name: Currently we do not limit length of startup name user can input. This
+results in overflow. We plan to address this in the future by limiting length of startup names to 32 letters long.
+
+2. Supporting country codes: Currently we do not allow users to specify country codes using "-", this makes it hard to track
+international numbers. We plan to allow for the user to add an optional country code field alongside the phone number in further iterations.
+
+3. Limit phone numbers: Currently we do not limit the length of phone numbers users can input. This may result in a UI overflow.
+We plan to address this in the future by limiting the length of the phone number to 8 digits for the number and 3 digits for the country code after planned enhancement 2 has been completed.
+
+4. Supporting non-alphanumerical characters in startup names: Some company names may contain non-alphanumerical characters. We plan to address this in the future by allowing for such characters to be in the name,
+but also changing the current regular expression rules to ensure that the input remains valid.
+
+5. Supporting non-alphanumerical characters in tags: Currently tags must be in alphanumerical characters without spacings. This forces users to find alternative means to add tags, such as using camel case within their tags instead. For example,
+`US based` would not be an allowed tag, resorting in users tagging the startup as `USBased` instead. We plan to address this in the future by allowing for such characters to be in the tag,
+but also changing the current regular expression rules to ensure that the input remains valid.
