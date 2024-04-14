@@ -272,6 +272,11 @@ Format: `addnote INDEX NOTE`
 
 - Adds a note to the startup at the specified `INDEX`. The index refers to the index number shown in the displayed startup list. The index **must be a positive integer** 1, 2, 3, …​
 - The `NOTE` field must be provided and cannot be empty.
+- There was no limit set to the length of the note, but it is 2,147,483,647 characters theoretically!
+- The was also no limit set to the number of notes, so the likely limit is 2,147,483,647 Notes or the memory of your system, whichever comes first!
+- Duplicate notes are allowed! This is to give users freedom to decide how you'd like to organise and use the notes section.
+- We understand that you might want to have a number to know the index of the note you're looking at. This feature is currently a work in progress and will be dropped soon too!
+
 
 Examples:
 - `addnote 1 Secured Series A funding` Adds a note about securing Series A funding to the 1st startup.
@@ -297,14 +302,6 @@ without clicking into it on the user interface, you could tag the startup with `
 **Tip:** Use specific and concise notes to effectively capture important information about each startup.
 </box>
 
-**Why are there no indexes beside each note?**
-
-This was a design feature made by our engineers to keep the UI as clean as possible! However, we understand that note numberings may become difficult to track, especially since we allow unlimited notes! In a future iteration, we will include indexes to help our users keep better track of their notes!
-
-**Why are duplicate notes allowed?**
-
-Users are given complete freedom to decide how they want to organise the notes of their startups, this includes duplicate notes if they are desired :) 
-
 ---
 
 ### Editing a Note of a Startup: `editnote`
@@ -315,6 +312,8 @@ Format: `editnote INDEX NOTE_INDEX NOTE`
 
 - Edits the note at `NOTE_INDEX` of the startup at the specified `INDEX`. Both indexes refer to the index number shown in the displayed startup list and the note list respectively. Both indexes **must be positive integers** 1, 2, 3, …​
 - The `NOTE` field must be provided and cannot be empty.
+- We understand that you would need to know the index of the note you're looking at to edit. This feature is currently a work in progress and will be dropped as soon as possible! In the meantime, please count from the first note :)
+
 
 Examples:
 - `editnote 1 1 Revised Series A valuation` Edits the first note of the 1st startup to "Revised Series A valuation".
@@ -336,6 +335,8 @@ Deletes a note from an existing startup in the address book.
 Format: `deletenote INDEX NOTE_INDEX`
 
 - Deletes the note at `NOTE_INDEX` from the startup at the specified `INDEX`. Both indexes refer to the index number shown in the displayed startup list and the note list respectively. Both indexes **must be positive integers** 1, 2, 3, …​
+- We understand that you would need to know the index of the note you're looking at to delete. This feature is currently a work in progress and will be dropped as soon as possible! In the meantime, please count from the first note :)
+- We also understand that you may like to delete all your notes with a single command. Unfortunately, we do not support this yet. This will be a feature for a future iteration!
 
 Examples:
 - `deletenote 1 1` Deletes the first note of the 1st startup.
@@ -347,10 +348,6 @@ Examples:
 
 **Tip:** Use the `deletenote` command cautiously to ensure important notes are not accidentally removed.
 </box>
-
-**Is there any better way to delete all notes quickly?**
-
-Currently, we do not support a feature allowing users to delete all their notes with a single command. However, we understand that this may be useful especially for keeping user storage clean. This will be a feature for a future iteration!
 
 
 

@@ -587,8 +587,76 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `edit 1 f/H` <br>
         Expected: No edits made to any startups, users are informed on valid input for funding stages.
 
-    2. Test case: `edit 1 i/`
+    2. Test case: `edit 1 i/` <br>
         Expected: No edits made to any startups, users are informed on valid industry inputs.
+
+### Adding a Note to a Startup
+
+1. Prerequisites: One startup in CapitalConnect at the first position with 0 or more notes
+
+1. Adding a note with valid inputs
+
+   1. Test case: `addnote 1 Beautiful and Handsome` <br>
+      Expected: The startup at position 1 has a note added to it. Details of the Note is shown in the Note Display Box.
+
+2. Adding a note with invalid inputs
+
+    1. Test case: `addnote 1` <br>
+       Expected: No note is added to the Startup and Note Box, users are informed on valid input for the addnote command.
+
+    2. Test case: `addnote No index given` <br>
+       Expected: No note is added to the Startup and Note Box, users are informed on valid input for the addnote command.
+
+
+### Editing a Note in a Startup
+
+1. **Prerequisites**: A startup in CapitalConnect in position 1 with at least one note.
+
+2. **Editing a note with valid inputs**
+
+    1. Test case: `editnote 1 1 New content for the note`
+        - Expected: The first note of the startup at index 1 is edited to "New content for the note". The details of the note are shown in the Note Display Box.
+
+3. **Editing a note with invalid inputs**
+
+    1. Test case: `editnote`
+        - Expected: No note is edited. Error message about invalid command format is shown.
+
+    2. Test case: `editnote 1`
+        - Expected: No note is edited. Error message about invalid command format is shown.
+
+    3. Test case: `editnote 1 2`
+        - Expected: No note is edited. Error message about invalid command format is shown.
+
+    4. Test case: `editnote 1 99 New content but invalid note index`
+        - Expected: No note is edited as the note index is out of range. Error message about invalid note index is shown.
+
+    5. Test case: `editnote 99 1 New content but invalid startup index`
+        - Expected: No note is edited as the startup index is out of range. Error message about invalid startup index is shown.
+
+### Deleting a Note from a Startup
+
+1. **Prerequisites**: A startup in CapitalConnect in position 1 with at least one note.
+
+2. **Deleting a note with valid inputs**
+
+    1. Test case: `deletenote 1 1`
+        - Expected: The first note of the startup at index 1 is deleted. Details of the updated notes list are shown in the Note Display Box.
+
+3. **Deleting a note with invalid inputs**
+
+    1. Test case: `deletenote`
+        - Expected: No note is deleted. Error message about invalid command format is shown.
+
+    2. Test case: `deletenote 1`
+        - Expected: No note is deleted. Error message about invalid command format is shown.
+
+    3. Test case: `deletenote 1 99`
+        - Expected: No note is deleted as the note index is out of range. Error message about invalid note index is shown.
+
+    4. Test case: `deletenote 99 1`
+        - Expected: No note is deleted as the startup index is out of range. Error message about invalid startup index is shown.
+
 
 ## **Appendix: Planned Enhancement**
 
@@ -609,3 +677,7 @@ but also changing the current regular expression rules to ensure that the input 
 5. Supporting non-alphanumerical characters in tags: Currently tags must be in alphanumerical characters without spacings. This forces users to find alternative means to add tags, such as using camel case within their tags instead. For example,
 `US based` would not be an allowed tag, resorting in users tagging the startup as `USBased` instead. We plan to address this in the future by allowing for such characters to be in the tag,
 but also changing the current regular expression rules to ensure that the input remains valid.
+
+6. Display Index for Notes: Currently, Notes displayed in the UI do not indicate their index, making identifying them for editing/deleting difficult. We plan to support this for a future iteration.
+
+7. Delete All Notes Feature: Currently, Notes need to be deleted one by one, which may be troublesome for users who want to organise and clear their startup information quickly. We plan to support this in a future iteration.
