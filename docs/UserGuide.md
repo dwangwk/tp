@@ -364,8 +364,8 @@ Format: `add-p INDEX pn/NAME pe/EMAIL [pd/DESCRIPTION]…​`
 
 **Caution: Detection of Duplicated Persons**
 
-Note that duplicated persons in one startup are detected by `email`. We assume that `email` is unique for every person.
-In other words, we assume that it is possible to have 3 Johns in one company, and they all have different emails. Before adding a new person to the startup, always double-check their `email` to make sure that the person is not added already.
+Note that duplicated persons in one startup are detected by `pe/EMAIL`. We assume that email is unique for every person.
+In other words, we assume that it is possible to have 3 Johns in one company, and they all have different emails. Before adding a new person to the startup, always double-check their `pe/EMAIL` to make sure that the person is not added already.
 Also take note that we allow one person to work in multiple startups.
 </box>
 

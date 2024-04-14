@@ -31,11 +31,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Ye Si Fan
+### Ye Sifan
 
 <img src="images/yespiggy.png" width="200px">
 
-[[github](http://github.com/yespiggy)] [[portfolio](team/sifan.md)]
+[[github](http://github.com/yespiggy)] [[portfolio](team/yespiggy.md)]
 
 * Role: Developer
 * Responsibilities: UI
